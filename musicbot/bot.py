@@ -1130,6 +1130,7 @@ class MusicBot(discord.Client):
                     commands.append("{}{}".format(self.config.command_prefix, command_name))
 
             helpmsg += ", ".join(commands)
+            helpmsg += "```\nEnjoy (^~^)"
            
 
             return Response(helpmsg, reply=True)
