@@ -691,30 +691,7 @@ class MusicBot(discord.Client):
         else:
             log.exception("Player error", exc_info=ex)
 
-    async def update_now_playing_status(self, entry=None, is_paused=False):
-        game = None
-
-        if self.user.bot:
-            activeplayers = sum(1 for p in self.players.values() if p.is_playing)
-            if activeplayers > 1:
-                game = discord.Game(name="music on %s servers" % activeplayers)
-                entry = None
-
-            elif activeplayers == 1:
-                player = discord.utils.get(self.players.values(), is_playing=True)
-                entry = player.current_entry
-
-        if entry:
-            prefix = u'\u275A\u275A ' if is_paused else ''
-
-            name = u'{}{}'.format(prefix, entry.title)[:128]
-            game = discord.Game(name=name)
-
-        async with self.aiolocks[_func_()]:
-            if game != self.last_status:
-                await self.change_presence(game=game)
-                self.last_status = game
-
+    
     async def update_now_playing_message(self, server, message, *, channel=None):
         lnp = self.server_specific_data[server]['last_np_msg']
         m = None
