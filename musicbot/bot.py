@@ -1098,42 +1098,7 @@ class MusicBot(discord.Client):
 
         # t-t-th-th-that's all folks!
 
-    async def cmd_help(self, command=None):
-        """
-        Usage:
-            {command_prefix}help [command]
-
-        Prints a help message.
-        If a command is specified, it prints a help message for that command.
-        Otherwise, it lists the available commands.
-        """
-
-        if command:
-            cmd = getattr(self, 'cmd_' + command, None)
-            if cmd and not hasattr(cmd, 'dev_cmd'):
-                return Response(
-                    "```\n{}```".format(
-                        dedent(cmd.__doc__)
-                    ).format(command_prefix=self.config.command_prefix),
-                    delete_after=60
-                )
-            else:
-                return Response("No such command", delete_after=10)
-
-        else:
-            helpmsg = "**Available commands**\n```"
-            commands = []
-
-            for att in dir(self):
-                if att.startswith('cmd_') and att != 'cmd_help' and not hasattr(getattr(self, att), 'dev_cmd'):
-                    command_name = att.replace('cmd_', '').lower()
-                    commands.append("{}{}".format(self.config.command_prefix, command_name))
-
-            helpmsg += ", ".join(commands)
-            helpmsg += "```\nEnjoy (^~^)"
-           
-
-            return Response(helpmsg, reply=True)
+    
 
     async def cmd_blacklist(self, message, user_mentions, option, something):
         """
