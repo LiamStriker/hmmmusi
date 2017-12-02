@@ -622,7 +622,7 @@ class MusicBot(discord.Client):
         await self.update_now_playing_status(entry, True)
         # await self.serialize_queue(player.voice_client.channel.server)
 
-    
+    async def on_player_stop(self, player, **_):
 
     async def on_player_finished_playing(self, player, **_):
         if not player.playlist.entries and not player.current_entry and self.config.auto_playlist:
